@@ -1,7 +1,7 @@
 package server
 
 import (
-	v1 "{{cookiecutter.module_name}}/api/helloworld/v1"
+	v1 "{{cookiecutter.module_name}}/api/{{cookiecutter.service}}/v1"
 	"{{cookiecutter.module_name}}/internal/conf"
 	"{{cookiecutter.module_name}}/internal/service"
 	"github.com/go-kratos/kratos/v2/log"
@@ -10,7 +10,7 @@ import (
 )
 
 // NewGRPCServer new a gRPC server.
-func NewGRPCServer(c *conf.Server, {{cookiecutter.repo_name}} *service.{{cookiecutter.service_name}}Service, logger log.Logger) *grpc.Server {
+func NewGRPCServer(c *conf.Server, {{cookiecutter.service}} *service.{{cookiecutter.service_name}}Service, logger log.Logger) *grpc.Server {
 	var opts = []grpc.ServerOption{
 		grpc.Middleware(
 			recovery.Recovery(),
@@ -26,6 +26,6 @@ func NewGRPCServer(c *conf.Server, {{cookiecutter.repo_name}} *service.{{cookiec
 		opts = append(opts, grpc.Timeout(c.Grpc.Timeout.AsDuration()))
 	}
 	srv := grpc.NewServer(opts...)
-	v1.Register{{cookiecutter.service_name}}Server(srv, {{cookiecutter.repo_name}})
+	v1.Register{{cookiecutter.service_name}}Server(srv, {{cookiecutter.service}})
 	return srv
 }

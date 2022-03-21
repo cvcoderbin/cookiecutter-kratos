@@ -23,11 +23,11 @@ func wireApp(confServer *conf.Server, confData *conf.Data, logger log.Logger) (*
 	if err != nil {
 		return nil, nil, err
 	}
-	{{cookiecutter.repo_name}}Repo := data.New{{cookiecutter.service_name}}Repo(dataData, logger)
-	{{cookiecutter.repo_name}}Usecase := biz.New{{cookiecutter.service_name}}Usecase({{cookiecutter.repo_name}}Repo, logger)
-	{{cookiecutter.repo_name}}Service := service.New{{cookiecutter.service_name}}Service({{cookiecutter.repo_name}}Usecase)
-	httpServer := server.NewHTTPServer(confServer, {{cookiecutter.repo_name}}Service, logger)
-	grpcServer := server.NewGRPCServer(confServer, {{cookiecutter.repo_name}}Service, logger)
+	{{cookiecutter.service}}Repo := data.New{{cookiecutter.service_name}}Repo(dataData, logger)
+	{{cookiecutter.service}}Usecase := biz.New{{cookiecutter.service_name}}Usecase({{cookiecutter.service}}Repo, logger)
+	{{cookiecutter.service}}Service := service.New{{cookiecutter.service_name}}Service({{cookiecutter.service}}Usecase)
+	httpServer := server.NewHTTPServer(confServer, {{cookiecutter.service}}Service, logger)
+	grpcServer := server.NewGRPCServer(confServer, {{cookiecutter.service}}Service, logger)
 	app := newApp(logger, httpServer, grpcServer)
 	return app, func() {
 		cleanup()
